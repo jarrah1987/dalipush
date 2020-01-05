@@ -66,20 +66,20 @@ public class DalipushPlugin implements MethodCallHandler, EventChannel.StreamHan
             final CloudPushService pushService = PushServiceFactory.getCloudPushService();
             String account = (String)call.argument("account");
             pushService.bindAccount(account,new CommonCallback(){
-                void onSuccess(String var1){
+                public void onSuccess(String var1){
 
                 }
-                void onFailed(String var1, String var2){
+                public void onFailed(String var1, String var2){
 
                 }
             });
         }else if(call.method.equals("unbindAccount")){
             final CloudPushService pushService = PushServiceFactory.getCloudPushService();
             pushService.unbindAccount(new CommonCallback(){
-                void onSuccess(String var1){
+                public void onSuccess(String var1){
 
                 }
-                void onFailed(String var1, String var2){
+                public void onFailed(String var1, String var2){
 
                 }
             });
