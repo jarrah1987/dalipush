@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/services.dart';
 
@@ -38,6 +39,14 @@ class Dalipush {
     final String token =
     await _methodChannel.invokeMethod('getDeviceToken');
     return token;
+  }
+
+  void bindAccount(account) async {
+    _methodChannel.invokeMethod('bindAccount',{'account': '$account'});
+  }
+
+  void unbindAccount(account) async {
+    _methodChannel.invokeMethod('unbindAccount');
   }
 
   Stream<dynamic> get onMessage {
