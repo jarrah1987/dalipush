@@ -6,6 +6,7 @@ import android.util.Log;
 import com.alibaba.sdk.android.push.AndroidPopupActivity;
 
 import java.util.Map;
+import com.google.gson.Gson;
 
 public class PopupPushActivity extends AndroidPopupActivity {
     static final String TAG = "PopupPushActivity";
@@ -22,8 +23,7 @@ public class PopupPushActivity extends AndroidPopupActivity {
     @Override
     protected void onSysNoticeOpened(String title, String summary, Map<String, String> extMap) {
         Log.d(TAG,"Oitle: " + title + ", content: " + summary + ", extMap: " + extMap);
-
-        DalipushPlugin.getInstance().getEventSink().success(gson.toJson(new Notification(title, summary, extraMap), Notification.class));
+        DalipushPlugin.getInstance().getEventSink().success(gson.toJson(new Notification(title, summary, extMap), Notification.class));
     }
 
     private class Notification {
@@ -37,18 +37,6 @@ public class PopupPushActivity extends AndroidPopupActivity {
             this.title = title;
             this.summary = summary;
             this.extraMap = extraMap;
-        }
-    }
-
-    private class Message {
-        String type;
-        String title;
-        String content;
-
-        public Message(CPushMessage cPushMessage) {
-            this.type = "message";
-            this.title = cPushMessage.getTitle();
-            this.content = cPushMessage.getContent();
         }
     }
 }
