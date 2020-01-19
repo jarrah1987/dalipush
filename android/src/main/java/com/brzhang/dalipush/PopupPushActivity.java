@@ -22,5 +22,33 @@ public class PopupPushActivity extends AndroidPopupActivity {
     @Override
     protected void onSysNoticeOpened(String title, String summary, Map<String, String> extMap) {
         Log.d(TAG,"Oitle: " + title + ", content: " + summary + ", extMap: " + extMap);
+
+        DalipushPlugin.getInstance().getEventSink().success(gson.toJson(new Notification(title, summary, extraMap), Notification.class));
+    }
+
+    private class Notification {
+        String type;
+        String title;
+        String summary;
+        Map<String, String> extraMap;
+
+        public Notification(String title, String summary, Map<String, String> extraMap) {
+            this.type = "notification";
+            this.title = title;
+            this.summary = summary;
+            this.extraMap = extraMap;
+        }
+    }
+
+    private class Message {
+        String type;
+        String title;
+        String content;
+
+        public Message(CPushMessage cPushMessage) {
+            this.type = "message";
+            this.title = cPushMessage.getTitle();
+            this.content = cPushMessage.getContent();
+        }
     }
 }
